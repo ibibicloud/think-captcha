@@ -1,9 +1,9 @@
-### tp5-captcha
+### think-captcha
 基于 https://github.com/top-think/think-captcha/tree/v2.0.2
 
 ### 安装
 ~~~
-composer require ibibicloud/tp5-captcha
+composer require ibibicloud/think-captcha
 ~~~
 
 ### 路由规则
