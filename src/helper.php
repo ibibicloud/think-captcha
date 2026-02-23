@@ -1,43 +1,45 @@
 <?php
 
+use think\captcha\facade\Captcha;
+use think\facade\Route;
+use think\Response;
+
 /**
- * @param string $id
- * @param array  $config
+ * @param string $config
  * @return \think\Response
  */
-function captcha($id = '', $config = [])
+function captcha($config = null): Response
 {
-    $captcha = new \think\Captcha($config);
-    return $captcha->entry($id);
+    return Captcha::create($config);
 }
 
 /**
- * @param $id
- * @return mixed
+ * @param $config
+ * @return string
  */
-function captcha_img($id = '')
+function captcha_src($config = null): string
 {
-    $src = captcha_src($id);
-    return '<img src="' . $src . '"' . " onclick='this.src=\"{$src}?\"+Math.random();' title=\"点击刷新验证码\"  id=\"captcha_src\">";
+    return Route::buildUrl('/captcha' . ($config ? "/{$config}" : ''));
 }
 
 /**
  * @param $id
  * @return string
  */
-function captcha_src($id = '')
+function captcha_img($id = '', $domid = ''): string
 {
-    return url('/captcha', ($id ? "/{$id}" : ''));
+    $src = captcha_src($id);
+  
+    $domid = empty($domid) ? $domid : "id='" . $domid . "'";
+
+    return "<img src='{$src}' alt='captcha' " . $domid . " onclick='this.src=\"{$src}?\"+Math.random();' />";
 }
 
 /**
- * @param $value
- * @param string $id
- * @param array  $config
+ * @param string $value
  * @return bool
  */
-function captcha_check($value, $id = '')
+function captcha_check($value)
 {
-    $captcha = new \think\Captcha(config('captcha'));
-    return $captcha->check($value, $id);
+    return Captcha::check($value);
 }

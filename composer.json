@@ -3,15 +3,24 @@
     "type": "library",
     "license": "Apache-2.0",
     "require": {
-        "php": ">=7.2.0",
-        "ibibicloud/think-framework": "5.1.*"
-    }, 
+        "ibibicloud/think-framework": "8.*"
+    },
     "autoload": {
         "psr-4": {
-            "think\\": "src"
+            "think\\captcha\\": "src/"
         },
         "files": [
             "src/helper.php"
         ]
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "think\\captcha\\CaptchaService"
+            ],
+            "config":{
+                "captcha": "src/config.php"
+            }            
+        }
     }
 }
